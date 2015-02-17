@@ -11,6 +11,7 @@ module Fluent
       require 'time'
       require 'tempfile'
       require 'oci8'
+      require 'json'
 
       @compressor = nil
     end
@@ -108,13 +109,14 @@ module Fluent
 
         records = []
         chunk.msgpack_each {|(tag,time,record)|
-          records << record.to_json
+          records << record
         }
 
         records.each.with_index(1) do |v,id|
           vals = []
           vals.push(id)
-          vals.push(v['body'])
+          json = JSON.parse(v.to_json)
+          vals.push(json["body"])
           handler.insert(@table, @columns, vals)
         end
       end

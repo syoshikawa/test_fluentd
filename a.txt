@@ -1,0 +1,8 @@
+ruby -e "require 'oci8'; OCI8.new('user','aaa','localhost:1521/sample').exec('SELECT * FROM hoge') do |r| puts r.join(','); end"
+
+export GEM_HOME=/opt/td-agent/embedded/lib/ruby/gems/2.1.0/
+export GEM_PATH=$GEM_HOME
+export LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib
+export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+export ORACLE_SID=
+export NLS_LANG=AMERICAN_AMERICA.UTF8
